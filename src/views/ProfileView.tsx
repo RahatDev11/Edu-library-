@@ -184,6 +184,23 @@ export const ProfileView: React.FC<ProfileViewProps> = () => {
             </span>
           </button>
 
+          {/* GitHub Actions Artifact & Deployment Info Card */}
+          <div className="p-4 rounded-xl border border-sky-500/30 bg-sky-500/10 space-y-2 text-xs">
+            <div className="flex items-center space-x-2 font-bold text-sky-600 dark:text-sky-300">
+              <Globe className="w-4 h-4 text-sky-500" />
+              <span>{lang === "bn" ? "গিটহাব ডিপ্লয় ও আর্টিফ্যাক্ট ডাউনলোড নির্দেশিকা" : "GitHub CI/CD & Artifact Download Setup"}</span>
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
+              {lang === "bn"
+                ? "প্রজেক্টের মূল ফোল্ডারে `.github/workflows/build-artifacts.yml` ফাইল যুক্ত করা হয়েছে। গিটহাবে পুশ করার পর GitHub Actions অটোমেটিক বিল্ড সম্পন্ন করবে এবং Actions > Artifacts থেকে আপনি সরাসরি অ্যাপের প্রডাকশন ফাইল ডাউনলোড করতে পারবেন।"
+                : "A GitHub Actions workflow (.github/workflows/build-artifacts.yml) is created. When pushed to GitHub, it automatically compiles the app and makes the output available under GitHub Actions > Artifacts."}
+            </p>
+            <div className="pt-1 flex items-center justify-between text-[10px] font-mono text-slate-500">
+              <span>Workflow File: .github/workflows/build-artifacts.yml</span>
+              <span className="text-emerald-500 font-bold">✓ Ready to Push</span>
+            </div>
+          </div>
+
           {/* Language Switcher */}
           <button
             onClick={() => setLanguage(lang === "bn" ? "en" : "bn")}
