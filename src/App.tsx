@@ -1,0 +1,211 @@
+import React, { useState } from "react";
+import { AppProvider, useApp } from "./context/AppContext";
+import { Header } from "./components/Header";
+import { HomeView } from "./views/HomeView";
+import { DownloadsView } from "./views/DownloadsView";
+import { UploadView } from "./views/UploadView";
+import { NotificationsView } from "./views/NotificationsView";
+import { ProfileView } from "./views/ProfileView";
+import { FileDetailsModal } from "./components/FileDetailsModal";
+import { PdfViewerModal } from "./components/PdfViewerModal";
+import { AiDocumentScannerModal } from "./components/AiDocumentScannerModal";
+import { AuthModal } from "./components/AuthModal";
+import { EduFile } from "./types";
+import {
+  Home,
+  FileText,
+  PlusCircle,
+  Bell,
+  User,
+} from "lucide-react";
+
+function MainApp() {
+  const { lang, notifications, theme } = useApp();
+
+  // Active Bottom Tab State
+  const [activeTab, setActiveTab] = useState<"home" | "downloads" | "upload" | "notifications" | "profile">("home");
+
+  // Active Selected File for Details Modal
+  const [selectedFile, setSelectedFile] = useState<EduFile | null>(null);
+
+  // Active Selected File for PDF Reader Modal
+  const [pdfReaderFile, setPdfReaderFile] = useState<EduFile | null>(null);
+
+  // Gemini Modals & Auth Modal
+  const [isAiScannerOpen, setIsAiScannerOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  const unreadNotifs = notifications.filter((n) => !n.read).length;
+
+  return (
+    <div
+      className={`min-h-screen flex flex-col font-sans pb-20 selection:bg-blue-500 selection:text-white transition-colors duration-200 ${
+        theme === "dark" ? "bg-[#0a0f1d] text-slate-100" : "bg-slate-100 text-slate-900"
+      }`}
+    >
+      
+      {/* Top Header */}
+      <Header onOpenAuthModal={() => setIsAuthModalOpen(true)} />
+
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8">
+        {activeTab === "home" && (
+          <HomeView
+            onSelectFile={(f) => setSelectedFile(f)}
+          />
+        )}
+
+        {activeTab === "downloads" && (
+          <DownloadsView onOpenPdfReader={(f) => setPdfReaderFile(f)} />
+        )}
+
+        {activeTab === "upload" && <UploadView />}
+
+        {activeTab === "notifications" && <NotificationsView />}
+
+        {activeTab === "profile" && (
+          <ProfileView onOpenPdfReader={(f) => setPdfReaderFile(f)} />
+        )}
+      </main>
+
+      {/* Modals */}
+      <FileDetailsModal
+        file={selectedFile}
+        onClose={() => setSelectedFile(null)}
+        onOpenPdfReader={(f) => setPdfReaderFile(f)}
+      />
+
+      <PdfViewerModal
+        file={pdfReaderFile}
+        onClose={() => setPdfReaderFile(null)}
+      />
+
+      <AiDocumentScannerModal
+        isOpen={isAiScannerOpen}
+        onClose={() => setIsAiScannerOpen(false)}
+      />
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
+
+      {/* Bottom 5-Tab Navigation Bar */}
+      <nav
+        className={`fixed bottom-0 left-0 right-0 z-40 backdrop-blur-xl border-t transition-colors duration-200 shadow-2xl ${
+          theme === "dark"
+            ? "bg-[#0d1322]/95 border-slate-800/90 text-slate-400"
+            : "bg-white/95 border-slate-200 text-slate-600 shadow-lg"
+        }`}
+      >
+        <div className="max-w-md mx-auto flex items-center justify-around h-16 px-2">
+          
+          {/* 1. Home */}
+          <button
+            onClick={() => setActiveTab("home")}
+            className={`flex flex-col items-center justify-center w-16 py-1 transition ${
+              activeTab === "home"
+                ? "text-sky-500 font-bold"
+                : theme === "dark"
+                ? "text-slate-400 hover:text-slate-200"
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            <Home className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px]">
+              {lang === "bn" ? "হোম" : "Home"}
+            </span>
+          </button>
+
+          {/* 2. Library / Exams */}
+          <button
+            onClick={() => setActiveTab("downloads")}
+            className={`flex flex-col items-center justify-center w-16 py-1 transition ${
+              activeTab === "downloads"
+                ? "text-sky-500 font-bold"
+                : theme === "dark"
+                ? "text-slate-400 hover:text-slate-200"
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            <FileText className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px]">
+              {lang === "bn" ? "লাইব্রেরি" : "Library"}
+            </span>
+          </button>
+
+          {/* 3. Upload Center */}
+          <button
+            onClick={() => setActiveTab("upload")}
+            className={`flex flex-col items-center justify-center w-16 py-1 transition ${
+              activeTab === "upload"
+                ? "text-sky-500 font-bold"
+                : theme === "dark"
+                ? "text-slate-400 hover:text-slate-200"
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            <div className="w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-lg mb-0.5 transition border border-blue-400/40">
+              <PlusCircle className="w-5 h-5" />
+            </div>
+            <span className="text-[10px]">
+              {lang === "bn" ? "আপলোড" : "Upload"}
+            </span>
+          </button>
+
+          {/* 4. Notifications */}
+          <button
+            onClick={() => setActiveTab("notifications")}
+            className={`flex flex-col items-center justify-center w-16 py-1 transition relative ${
+              activeTab === "notifications"
+                ? "text-sky-500 font-bold"
+                : theme === "dark"
+                ? "text-slate-400 hover:text-slate-200"
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            <div className="relative">
+              <Bell className="w-5 h-5 mb-0.5" />
+              {unreadNotifs > 0 && (
+                <span className="absolute -top-1 -right-1 bg-rose-500 text-white font-black text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                  {unreadNotifs}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px]">
+              {lang === "bn" ? "বিজ্ঞপ্তি" : "Notifs"}
+            </span>
+          </button>
+
+          {/* 5. Profile */}
+          <button
+            onClick={() => setActiveTab("profile")}
+            className={`flex flex-col items-center justify-center w-16 py-1 transition ${
+              activeTab === "profile"
+                ? "text-sky-500 font-bold"
+                : theme === "dark"
+                ? "text-slate-400 hover:text-slate-200"
+                : "text-slate-500 hover:text-slate-900"
+            }`}
+          >
+            <User className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px]">
+              {lang === "bn" ? "প্রোফাইল" : "Profile"}
+            </span>
+          </button>
+
+        </div>
+      </nav>
+
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AppProvider>
+      <MainApp />
+    </AppProvider>
+  );
+}
+
