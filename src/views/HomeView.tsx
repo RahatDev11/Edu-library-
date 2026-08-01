@@ -40,13 +40,16 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
   const activeLevel = eduLevels.find((l) => l.id === selectedLevelId);
   const activeDept = activeLevel?.departments.find((d) => d.id === selectedDeptId);
-  const activeSubject = activeDept?.subjects.find((s) => s.id === selectedSubjectId);
+  const activeSubject =
+    selectedSubjectId && selectedSubjectId !== "ALL"
+      ? activeDept?.subjects.find((s) => s.id === selectedSubjectId)
+      : null;
 
   // Filter approved files based on selections
   const filteredFiles = approvedFiles.filter((file) => {
     if (selectedLevelId && file.levelId !== selectedLevelId) return false;
     if (selectedDeptId && file.deptId !== selectedDeptId) return false;
-    if (selectedSubjectId && file.subjectId !== selectedSubjectId) return false;
+    if (selectedSubjectId && selectedSubjectId !== "ALL" && file.subjectId !== selectedSubjectId) return false;
     return true;
   });
 
@@ -286,25 +289,23 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
           </div>
         )}
 
-        {/* STEP 3: SUBJECTS & SUGGESTION FILES (When Department is selected) */}
-        {selectedLevelId && selectedDeptId && activeDept && (
-          <div className="space-y-5">
-            
-            {/* Header */}
+        {/* STEP 3: SELECT SUBJECT CARDS (When Department is selected, but Subject is not) */}
+        {selectedLevelId && selectedDeptId && !selectedSubjectId && activeDept && (
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
                   <BookOpen className="w-5 h-5 text-sky-500 dark:text-sky-400" />
                   <span>
                     {lang === "bn"
-                      ? `${activeDept.nameBn} - বিষয়সমূহ ও সাজেশন`
-                      : `${activeDept.name} - Subjects & Suggestions`}
+                      ? `${activeDept.nameBn} - বিষয় নির্বাচন করুন`
+                      : `${activeDept.name} - Select Subject`}
                   </span>
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   {lang === "bn"
-                    ? "পছন্দের বিষয়ে ক্লিক করে নির্দিষ্ট নোট ও ফাইল ডাউনলোড করুন"
-                    : "Select a subject to view specific notes & files"}
+                    ? "আপনার কাঙ্ক্ষিত বিষয়ে ক্লিক করে নোট ও ফাইল দেখুন"
+                    : "Tap a subject to view notes & files"}
                 </p>
               </div>
 
@@ -317,12 +318,117 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
               </button>
             </div>
 
-            {/* Subject Badges Filter Grid */}
-            <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+            {/* Grid of Subject Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {/* Option 0: All Subjects Card */}
+              <div
+                onClick={() => setSelectedSubjectId("ALL")}
+                className="p-4 rounded-2xl bg-gradient-to-br from-sky-500/10 via-blue-500/5 to-transparent border border-sky-500/30 hover:border-sky-400 dark:bg-[#121a2d] dark:border-sky-500/30 dark:hover:border-sky-400 shadow-md hover:shadow-lg cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white font-bold shrink-0 shadow-md">
+                    <Layers className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
+                      {lang === "bn" ? "সকল বিষয় (All Subjects)" : "All Subjects"}
+                    </h4>
+                    <span className="text-[11px] text-sky-600 dark:text-sky-400 font-bold">
+                      {
+                        approvedFiles.filter(
+                          (f) => f.levelId === selectedLevelId && f.deptId === selectedDeptId
+                        ).length
+                      }{" "}
+                      {lang === "bn" ? "টি ফাইল ও নোট" : "Total Files"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="w-7 h-7 rounded-full bg-sky-500 text-white flex items-center justify-center transition">
+                  <ChevronRight className="w-4 h-4" />
+                </div>
+              </div>
+
+              {/* Individual Subject Cards */}
+              {activeDept.subjects.map((sbj) => {
+                const sbjFilesCount = approvedFiles.filter(
+                  (f) =>
+                    f.levelId === selectedLevelId &&
+                    f.deptId === selectedDeptId &&
+                    f.subjectId === sbj.id
+                ).length;
+
+                return (
+                  <div
+                    key={sbj.id}
+                    onClick={() => setSelectedSubjectId(sbj.id)}
+                    className="p-4 rounded-2xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-sky-500/50 shadow-md hover:shadow-lg cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-500 dark:text-sky-400 font-bold shrink-0">
+                        <Folder className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
+                          {lang === "bn" ? sbj.nameBn : sbj.name}
+                        </h4>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                          {sbjFilesCount} {lang === "bn" ? "টি ফাইল ও নোট" : "Files"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-slate-500 dark:text-slate-400 transition">
+                      <ChevronRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 4: SUGGESTION & NOTE FILES (When Subject is selected) */}
+        {selectedLevelId && selectedDeptId && selectedSubjectId && activeDept && (
+          <div className="space-y-5">
+            
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+                  <FileText className="w-5 h-5 text-sky-500 dark:text-sky-400" />
+                  <span>
+                    {activeSubject
+                      ? lang === "bn"
+                        ? `${activeSubject.nameBn} - নোট ও সাজেশন`
+                        : `${activeSubject.name} - Notes & Suggestions`
+                      : lang === "bn"
+                      ? `${activeDept.nameBn} - সকল বিষয় এর নোট ও সাজেশন`
+                      : `${activeDept.name} - All Subjects Notes`}
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {lang === "bn"
+                    ? "প্রয়োজনীয় ফাইল নির্বাচন করে বিস্তারিত দেখুন বা ডাউনলোড করুন"
+                    : "Select a file to view details or download"}
+                </p>
+              </div>
+
               <button
                 onClick={() => setSelectedSubjectId(null)}
+                className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition flex items-center space-x-1"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>{lang === "bn" ? "বিষয়সমূহ" : "Subjects"}</span>
+              </button>
+            </div>
+
+            {/* Quick Switcher Pills */}
+            <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+              <button
+                onClick={() => setSelectedSubjectId("ALL")}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition border ${
-                  !selectedSubjectId
+                  selectedSubjectId === "ALL"
                     ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white border-sky-400/40 shadow-md"
                     : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100 dark:bg-[#121a2d] dark:text-slate-300 dark:border-slate-800 dark:hover:text-white"
                 }`}
@@ -335,7 +441,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
                 return (
                   <button
                     key={sbj.id}
-                    onClick={() => setSelectedSubjectId(isSelected ? null : sbj.id)}
+                    onClick={() => setSelectedSubjectId(sbj.id)}
                     className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition border ${
                       isSelected
                         ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white border-sky-400/40 shadow-md"
@@ -348,7 +454,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
               })}
             </div>
 
-            {/* Suggestion & Note Files Grid */}
+            {/* Files Grid */}
             <div className="space-y-3 pt-1">
               <div className="flex items-center justify-between">
                 <h3 className="font-extrabold text-xs sm:text-sm text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
@@ -356,8 +462,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
                   <span>
                     {activeSubject
                       ? lang === "bn"
-                        ? `${activeSubject.nameBn} এর নোট ও সাজেশন`
-                        : `${activeSubject.name} Notes & Suggestions`
+                        ? `${activeSubject.nameBn} এর ফাইলসমূহ`
+                        : `${activeSubject.name} Files`
                       : lang === "bn"
                       ? "উপলব্ধ সকল ফাইল ও সাজেশন"
                       : "Available Files & Suggestions"}
