@@ -14,15 +14,15 @@ export const NoticeBanner: React.FC = () => {
 
   return (
     <div
-      className={`border rounded-2xl p-2.5 sm:p-3 shadow-lg flex items-center space-x-3 overflow-hidden my-3 transition-colors duration-200 ${
+      className={`border rounded-2xl p-3 sm:p-4 shadow-lg flex items-center space-x-3 overflow-hidden my-1.5 transition-colors duration-200 ${
         theme === "dark"
-          ? "bg-[#121a2d] border-amber-500/30 text-amber-200"
-          : "bg-amber-500/10 border-amber-300 text-amber-900"
+          ? "bg-[#121a2d] border-amber-500/40 text-amber-200"
+          : "bg-amber-500/15 border-amber-300 text-amber-950"
       }`}
     >
       {/* Fixed Notice Label Badge */}
-      <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs shrink-0 shadow-md">
-        <Megaphone className="w-4 h-4 animate-bounce" />
+      <div className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs sm:text-sm shrink-0 shadow-md">
+        <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce" />
         <span>{lang === "bn" ? "নোটিশ" : "Notice"}</span>
       </div>
 
@@ -30,36 +30,36 @@ export const NoticeBanner: React.FC = () => {
       <div className="relative flex-1 overflow-hidden whitespace-nowrap mask-linear-fade">
         <div className="inline-block animate-marquee hover:[animation-play-state:paused] whitespace-nowrap">
           <span
-            className={`inline-flex items-center space-x-3 text-xs sm:text-sm font-semibold pr-12 ${
+            className={`inline-flex items-center space-x-3 text-sm sm:text-base md:text-lg font-bold pr-14 ${
               theme === "dark" ? "text-amber-200" : "text-amber-950"
             }`}
           >
             {activeNotice.pinned && (
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] bg-amber-500 text-slate-950 font-black">
-                <Pin className="w-3 h-3 mr-0.5" />
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-amber-500 text-slate-950 font-black">
+                <Pin className="w-3.5 h-3.5 mr-1" />
                 {lang === "bn" ? "পিন করা" : "Pinned"}
               </span>
             )}
-            <span className={`font-bold ${theme === "dark" ? "text-amber-300" : "text-amber-700"}`}>[{activeNotice.publishDate}]</span>
-            <span className={`font-bold ${theme === "dark" ? "text-white" : "text-slate-900"}`}>{noticeTitle}:</span>
-            <span className={theme === "dark" ? "text-amber-100/90" : "text-slate-800"}>{noticeDesc}</span>
+            <span className={`font-black ${theme === "dark" ? "text-amber-300" : "text-amber-700"}`}>[{activeNotice.publishDate}]</span>
+            <span className={`font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}>{noticeTitle}:</span>
+            <span className={theme === "dark" ? "text-amber-100" : "text-slate-900"}>{noticeDesc}</span>
           </span>
 
           {/* Repeat for continuous loop effect */}
           <span
-            className={`inline-flex items-center space-x-3 text-xs sm:text-sm font-semibold pr-12 ${
+            className={`inline-flex items-center space-x-3 text-sm sm:text-base md:text-lg font-bold pr-14 ${
               theme === "dark" ? "text-amber-200" : "text-amber-950"
             }`}
           >
             {activeNotice.pinned && (
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] bg-amber-500 text-slate-950 font-black">
-                <Pin className="w-3 h-3 mr-0.5" />
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-amber-500 text-slate-950 font-black">
+                <Pin className="w-3.5 h-3.5 mr-1" />
                 {lang === "bn" ? "পিন করা" : "Pinned"}
               </span>
             )}
-            <span className={`font-bold ${theme === "dark" ? "text-amber-300" : "text-amber-700"}`}>[{activeNotice.publishDate}]</span>
-            <span className={`font-bold ${theme === "dark" ? "text-white" : "text-slate-900"}`}>{noticeTitle}:</span>
-            <span className={theme === "dark" ? "text-amber-100/90" : "text-slate-800"}>{noticeDesc}</span>
+            <span className={`font-black ${theme === "dark" ? "text-amber-300" : "text-amber-700"}`}>[{activeNotice.publishDate}]</span>
+            <span className={`font-black ${theme === "dark" ? "text-white" : "text-slate-900"}`}>{noticeTitle}:</span>
+            <span className={theme === "dark" ? "text-amber-100" : "text-slate-900"}>{noticeDesc}</span>
           </span>
         </div>
       </div>

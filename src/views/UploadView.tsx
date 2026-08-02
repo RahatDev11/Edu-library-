@@ -25,10 +25,10 @@ export const UploadView: React.FC = () => {
   // Form State
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [levelId, setLevelId] = useState("lvl_hsc");
-  const [deptId, setDeptId] = useState("dept_hsc_sci");
-  const [semesterId, setSemesterId] = useState("sem_hsc_1st");
-  const [subjectId, setSubjectId] = useState("sbj_hsc_phys1");
+  const [levelId, setLevelId] = useState("lvl_honours");
+  const [deptId, setDeptId] = useState("dept_hon_pol");
+  const [semesterId, setSemesterId] = useState("sem_pol_1");
+  const [subjectId, setSubjectId] = useState("sbj_pol_hist");
   const [tags, setTags] = useState("Handwritten, FormulaSheet, BoardQuestions");
   const [fileType, setFileType] = useState<EduFile["fileType"]>("pdf");
   const [screenshots, setScreenshots] = useState<string[]>([

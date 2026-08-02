@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useApp } from "../context/AppContext";
+import { EduLogo } from "./EduLogo";
 import {
   Bell,
   Globe,
@@ -41,23 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAuthModal }) => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Website Logo & Name */}
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20 shrink-0">
-            <BookOpen className="w-5 h-5" />
-          </div>
-          <div>
-            <h1
-              className={`text-base sm:text-lg font-black tracking-tight flex items-center space-x-1.5 ${
-                theme === "dark" ? "text-white" : "text-slate-900"
-              }`}
-            >
-              <span>{lang === "bn" ? "এডু লাইব্রেরি" : "Edu Library"}</span>
-            </h1>
-            <p className="text-[10px] text-sky-500 dark:text-sky-400 font-semibold tracking-wider uppercase">
-              {lang === "bn" ? "অফিশিয়াল সাজেশন পোর্টাল" : "Official Suggestion Portal"}
-            </p>
-          </div>
-        </div>
+        <EduLogo variant="horizontal" size="md" />
 
         {/* Action Controls: Language Switcher, User Auth, Notification Bell */}
         <div className="flex items-center space-x-2.5">

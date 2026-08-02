@@ -1,6 +1,5 @@
 import React from "react";
 import { useApp } from "../context/AppContext";
-import { NoticeBanner } from "../components/NoticeBanner";
 import { FileCard } from "../components/FileCard";
 import { EduFile } from "../types";
 import {
@@ -107,9 +106,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
   return (
     <div className="space-y-4 pb-20">
-      
-      {/* Notice Banner Scrolling at the top */}
-      <NoticeBanner />
 
       {/* Breadcrumb & Navigation Bar */}
       {(selectedLevelId || selectedDeptId || selectedSubjectId) && (
@@ -423,36 +419,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
               </button>
             </div>
 
-            {/* Quick Switcher Pills */}
-            <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
-              <button
-                onClick={() => setSelectedSubjectId("ALL")}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition border ${
-                  selectedSubjectId === "ALL"
-                    ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white border-sky-400/40 shadow-md"
-                    : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100 dark:bg-[#121a2d] dark:text-slate-300 dark:border-slate-800 dark:hover:text-white"
-                }`}
-              >
-                {lang === "bn" ? "সকল বিষয়" : "All Subjects"}
-              </button>
 
-              {activeDept.subjects.map((sbj) => {
-                const isSelected = selectedSubjectId === sbj.id;
-                return (
-                  <button
-                    key={sbj.id}
-                    onClick={() => setSelectedSubjectId(sbj.id)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition border ${
-                      isSelected
-                        ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white border-sky-400/40 shadow-md"
-                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100 dark:bg-[#121a2d] dark:text-slate-300 dark:border-slate-800 dark:hover:text-white"
-                    }`}
-                  >
-                    {lang === "bn" ? sbj.nameBn : sbj.name}
-                  </button>
-                );
-              })}
-            </div>
 
             {/* Files Grid */}
             <div className="space-y-3 pt-1">

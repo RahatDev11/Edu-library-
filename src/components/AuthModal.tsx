@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X, Mail, Lock, User, LogIn, UserPlus, LogOut, ShieldCheck, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useApp } from "../context/AppContext";
+import { EduLogo } from "./EduLogo";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -106,9 +107,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </button>
 
         <div className="text-center space-y-2 mb-5">
-          <div className="w-12 h-12 mx-auto rounded-2xl bg-sky-500/10 dark:bg-sky-500/20 text-sky-500 flex items-center justify-center border border-sky-500/20">
-            <ShieldCheck className="w-6 h-6" />
-          </div>
+          <EduLogo variant="full" size="lg" className="mx-auto my-2" />
           <h2 className="text-lg font-black">
             {user.email !== "guest@edulibrary.org" && user.email !== ""
               ? lang === "bn"

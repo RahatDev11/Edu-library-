@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppProvider, useApp } from "./context/AppContext";
 import { Header } from "./components/Header";
+import { NoticeBanner } from "./components/NoticeBanner";
 import { HomeView } from "./views/HomeView";
 import { DownloadsView } from "./views/DownloadsView";
 import { UploadView } from "./views/UploadView";
@@ -47,8 +48,13 @@ function MainApp() {
       {/* Top Header */}
       <Header onOpenAuthModal={() => setIsAuthModalOpen(true)} />
 
+      {/* Prominent Notice Banner placed at the top of the app */}
+      <div className="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-2">
+        <NoticeBanner />
+      </div>
+
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 pt-1">
         {activeTab === "home" && (
           <HomeView
             onSelectFile={(f) => setSelectedFile(f)}
