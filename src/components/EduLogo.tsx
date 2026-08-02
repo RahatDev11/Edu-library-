@@ -1,4 +1,5 @@
 import React from "react";
+import logoImg from "../assets/logo.jpg";
 
 interface EduLogoProps {
   variant?: "full" | "icon" | "horizontal";
@@ -27,7 +28,7 @@ export const EduLogo: React.FC<EduLogoProps> = ({
     return (
       <div className={`relative flex items-center justify-center shrink-0 ${className}`}>
         <img
-          src="/logo.jpg"
+          src={logoImg}
           alt="Edu Library Logo"
           className={`${imgSizeClass} object-contain rounded-xl shadow-md border border-slate-200/50 dark:border-slate-800/80`}
         />
@@ -40,7 +41,7 @@ export const EduLogo: React.FC<EduLogoProps> = ({
       <div className={`flex flex-col items-center text-center ${className}`}>
         <div className="relative mb-2">
           <img
-            src="/logo.jpg"
+            src={logoImg}
             alt="Edu Library Logo"
             className={`${sizeClasses.xl} object-contain rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/80`}
           />
@@ -67,7 +68,7 @@ export const EduLogo: React.FC<EduLogoProps> = ({
     <div className={`flex items-center space-x-3 ${className}`}>
       <div className="relative shrink-0">
         <img
-          src="/logo.jpg"
+          src={logoImg}
           alt="Edu Library Logo"
           className={`${imgSizeClass} object-contain rounded-xl shadow-md border border-slate-200/60 dark:border-slate-800 bg-white p-0.5`}
         />
