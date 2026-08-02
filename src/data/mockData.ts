@@ -56,11 +56,15 @@ export const initialEduLevels: EduLevel[] = [
         semesters: [
           { id: "sem_eco_1", name: "1st Year", nameBn: "১ম বর্ষ" },
           { id: "sem_eco_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_eco_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_eco_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
           { id: "sbj_eco_micro", name: "Micro Economics", nameBn: "ব্যষ্টিক অর্থনীতি", code: "212201", semesterId: "sem_eco_1" },
           { id: "sbj_eco_macro", name: "Macro Economics", nameBn: "সামষ্টিক অর্থনীতি", code: "212203", semesterId: "sem_eco_1" },
           { id: "sbj_eco_math", name: "Basic Mathematics for Economics", nameBn: "অর্থনীতির মৌলিক গণিত", code: "212205", semesterId: "sem_eco_1" },
+          { id: "sbj_eco_201", name: "Intermediate Microeconomics", nameBn: "মধ্যবর্তী ব্যষ্টিক অর্থনীতি", code: "222201", semesterId: "sem_eco_2" },
+          { id: "sbj_eco_203", name: "Intermediate Macroeconomics", nameBn: "মধ্যবর্তী সামষ্টিক অর্থনীতি", code: "222203", semesterId: "sem_eco_2" },
         ],
       },
       {
@@ -72,11 +76,15 @@ export const initialEduLevels: EduLevel[] = [
         semesters: [
           { id: "sem_acc_1", name: "1st Year", nameBn: "১ম বর্ষ" },
           { id: "sem_acc_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_acc_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_acc_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
           { id: "sbj_acc_principles", name: "Principles of Accounting", nameBn: "হিসাববিজ্ঞানের নীতিমালা", code: "212501", semesterId: "sem_acc_1" },
           { id: "sbj_acc_finance", name: "Principles of Finance", nameBn: "অর্থায়নের নীতিমালা", code: "212503", semesterId: "sem_acc_1" },
           { id: "sbj_acc_marketing", name: "Principles of Marketing", nameBn: "বাজারজাতকরণ নীতিমালা", code: "212505", semesterId: "sem_acc_1" },
+          { id: "sbj_acc_201", name: "Intermediate Accounting", nameBn: "উচ্চতর হিসাববিজ্ঞান", code: "222501", semesterId: "sem_acc_2" },
+          { id: "sbj_acc_203", name: "Business Communication", nameBn: "ব্যবসায়িক যোগাযোগ", code: "222503", semesterId: "sem_acc_2" },
         ],
       },
       {
@@ -87,10 +95,14 @@ export const initialEduLevels: EduLevel[] = [
         icon: "Briefcase",
         semesters: [
           { id: "sem_mgt_1", name: "1st Year", nameBn: "১ম বর্ষ" },
+          { id: "sem_mgt_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_mgt_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_mgt_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
           { id: "sbj_mgt_intro", name: "Introduction to Business", nameBn: "ব্যবসায় পরিচিতি", code: "212601", semesterId: "sem_mgt_1" },
           { id: "sbj_mgt_prin", name: "Principles of Management", nameBn: "ব্যবস্থাপনার নীতিমালা", code: "212603", semesterId: "sem_mgt_1" },
+          { id: "sbj_mgt_hrm", name: "Human Resource Management", nameBn: "মানব সম্পদ ব্যবস্থাপনা", code: "222601", semesterId: "sem_mgt_2" },
         ],
       },
       {
@@ -100,13 +112,16 @@ export const initialEduLevels: EduLevel[] = [
         code: "CSE",
         icon: "Terminal",
         semesters: [
-          { id: "sem_cse_1", name: "1st Year / 1st Sem", nameBn: "১ম বর্ষ ১ম সেমিস্টার" },
-          { id: "sem_cse_2", name: "1st Year / 2nd Sem", nameBn: "১ম বর্ষ ২য় সেমিস্টার" },
+          { id: "sem_cse_1", name: "1st Year", nameBn: "১ম বর্ষ" },
+          { id: "sem_cse_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_cse_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_cse_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
-          { id: "sbj_cse_dsa", name: "Data Structures & Algorithms", nameBn: "ডাটা স্ট্রাকচার ও অ্যালগরিদম", code: "CSE2101", semesterId: "sem_cse_2" },
-          { id: "sbj_cse_dbms", name: "Database Management Systems", nameBn: "ডাটাবেজ ম্যানেজমেন্ট সিস্টেম", code: "CSE3105", semesterId: "sem_cse_2" },
           { id: "sbj_cse_c", name: "Structured Programming in C", nameBn: "সি প্রোগ্রামিং ল্যাঙ্গুয়েজ", code: "CSE1101", semesterId: "sem_cse_1" },
+          { id: "sbj_cse_dsa", name: "Data Structures & Algorithms", nameBn: "ডাটা স্ট্রাকচার ও অ্যালগরিদম", code: "CSE2101", semesterId: "sem_cse_2" },
+          { id: "sbj_cse_dbms", name: "Database Management Systems", nameBn: "ডাটাবেজ ম্যানেজমেন্ট সিস্টেম", code: "CSE3105", semesterId: "sem_cse_3" },
+          { id: "sbj_cse_net", name: "Computer Networks & Security", nameBn: "কম্পিউটার নেটওয়ার্কিং", code: "CSE4101", semesterId: "sem_cse_4" },
         ],
       },
       {
@@ -117,20 +132,44 @@ export const initialEduLevels: EduLevel[] = [
         icon: "Feather",
         semesters: [
           { id: "sem_eng_1", name: "1st Year", nameBn: "১ম বর্ষ" },
+          { id: "sem_eng_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_eng_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_eng_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
+          { id: "sem_eng_masters", name: "Masters / Preliminary", nameBn: "মাস্টার্স / প্রিলিমিনারি" },
         ],
         subjects: [
-          { id: "sbj_eng_hist_bd", name: "History of Bangladesh: Language, Culture and Identity", nameBn: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়", code: "211501", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_ict", name: "Information and Communication Technology (ICT)", nameBn: "তথ্য ও যোগাযোগ প্রযুক্তি (ICT)", code: "211503", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_reading", name: "English Reading Skills", nameBn: "English Reading Skills", code: "211101", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_writing", name: "English Writing Skills", nameBn: "English Writing Skills", code: "211103", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_poetry", name: "Introduction to Poetry", nameBn: "Introduction to Poetry", code: "211105", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_prose", name: "Introduction to Prose", nameBn: "Introduction to Prose", code: "211107", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_soc", name: "Introduction to Sociology", nameBn: "Introduction to Sociology (সমাজবিজ্ঞান পরিচিতি)", code: "212009", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_pol_uk_usa", name: "Political Organization and the Political System of UK and USA", nameBn: "Political Organization and the Political System of UK and USA", code: "211909", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_soc_prob", name: "Social Problems", nameBn: "Social Problems (সামাজিক সমস্যা)", code: "212011", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_anthro", name: "Introducing Anthropology", nameBn: "Introducing Anthropology (নৃতত্ত্ব পরিচিতি)", code: "214009", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_bd_soc_cult", name: "Bangladesh Society and Culture", nameBn: "Bangladesh Society and Culture (বাংলাদেশের সমাজ ও সংস্কৃতি)", code: "212013", semesterId: "sem_eng_1" },
-          { id: "sbj_eng_phil", name: "Introducing Philosophy", nameBn: "Introducing Philosophy (দর্শন পরিচিতি)", code: "211709", semesterId: "sem_eng_1" },
+          // 1st Year Subjects
+          { id: "sbj_eng_hist_bd", name: "History of Bangladesh: Language, Culture & Identity", nameBn: "স্বাধীন বাংলাদেশের অভ্যুদয়ের ইতিহাস", code: "211501", semesterId: "sem_eng_1" },
+          { id: "sbj_eng_reading", name: "English Reading Skills", nameBn: "English Reading Skills (পড়া দক্ষতা)", code: "211101", semesterId: "sem_eng_1" },
+          { id: "sbj_eng_writing", name: "English Writing Skills", nameBn: "English Writing Skills (লেখা দক্ষতা)", code: "211103", semesterId: "sem_eng_1" },
+          { id: "sbj_eng_poetry", name: "Introduction to Poetry", nameBn: "Introduction to Poetry (কবিতা পরিচিতি)", code: "211105", semesterId: "sem_eng_1" },
+          { id: "sbj_eng_prose", name: "Introduction to Prose: Fiction & Non-Fiction", nameBn: "Introduction to Prose (গদ্য পরিচিতি)", code: "211107", semesterId: "sem_eng_1" },
+          
+          // 2nd Year Subjects
+          { id: "sbj_eng_201", name: "Introduction to Drama", nameBn: "Introduction to Drama (নাটক পরিচিতি)", code: "221101", semesterId: "sem_eng_2" },
+          { id: "sbj_eng_203", name: "Romantic Poetry", nameBn: "Romantic Poetry (রোমান্টিক কবিতা - Keats, Wordsworth, Shelley)", code: "221103", semesterId: "sem_eng_2" },
+          { id: "sbj_eng_205", name: "Advanced Reading & Writing", nameBn: "Advanced Reading & Writing", code: "221105", semesterId: "sem_eng_2" },
+          { id: "sbj_eng_207", name: "History of English Literature", nameBn: "History of English Literature (ইংরেজি সাহিত্যের ইতিহাস)", code: "221107", semesterId: "sem_eng_2" },
+
+          // 3rd Year Subjects
+          { id: "sbj_eng_301", name: "Elizabethan & Jacobean Drama", nameBn: "Elizabethan & Jacobean Drama (শেক্সপিয়র ও মার্লো)", code: "231101", semesterId: "sem_eng_3" },
+          { id: "sbj_eng_303", name: "16th & 17th Century Prose", nameBn: "16th & 17th Century Prose (ফ্রান্সিস বেকন ও জন মিল্টন)", code: "231103", semesterId: "sem_eng_3" },
+          { id: "sbj_eng_305", name: "17th Century Poetry", nameBn: "17th Century Poetry", code: "231105", semesterId: "sem_eng_3" },
+          { id: "sbj_eng_307", name: "18th Century Prose & Fiction", nameBn: "18th Century Prose & Fiction", code: "231107", semesterId: "sem_eng_3" },
+          { id: "sbj_eng_309", name: "19th Century Novel", nameBn: "19th Century Novel (উইকটিরিয়ান উপন্যাস)", code: "231109", semesterId: "sem_eng_3" },
+          { id: "sbj_eng_311", name: "Introduction to Linguistics", nameBn: "Introduction to Linguistics (ভাষাবিজ্ঞান পরিচিতি)", code: "231111", semesterId: "sem_eng_3" },
+
+          // 4th Year Subjects
+          { id: "sbj_eng_401", name: "20th Century Poetry", nameBn: "20th Century Poetry (টিএস এলিয়ট, ইয়েটস)", code: "241101", semesterId: "sem_eng_4" },
+          { id: "sbj_eng_403", name: "20th Century Drama", nameBn: "20th Century Drama (স্যামুয়েল বেকেট, বার্নার্ড শ)", code: "241103", semesterId: "sem_eng_4" },
+          { id: "sbj_eng_405", name: "20th Century Novel", nameBn: "20th Century Novel (জোসেফ কনরাড, জর্জ অরওয়েল)", code: "241105", semesterId: "sem_eng_4" },
+          { id: "sbj_eng_407", name: "American Poetry & Literature", nameBn: "American Poetry & Literature (আমেরিকান সাহিত্য)", code: "241107", semesterId: "sem_eng_4" },
+          { id: "sbj_eng_409", name: "Literary Criticism & Theory", nameBn: "Literary Criticism & Theory (সাহিত্য সমালোচনা)", code: "241109", semesterId: "sem_eng_4" },
+          { id: "sbj_eng_411", name: "Classics in Translation", nameBn: "Classics in Translation (গ্রীক ও ল্যাটিন অনুবাদ সাহিত্য)", code: "241111", semesterId: "sem_eng_4" },
+
+          // Masters Subjects
+          { id: "sbj_eng_m01", name: "Modern & Post-Modern Literature", nameBn: "Modern & Post-Modern Literature", code: "311101", semesterId: "sem_eng_masters" },
+          { id: "sbj_eng_m03", name: "Post-Colonial Theory & Literature", nameBn: "Post-Colonial Theory & Literature", code: "311103", semesterId: "sem_eng_masters" },
         ],
       },
       {
@@ -141,10 +180,14 @@ export const initialEduLevels: EduLevel[] = [
         icon: "BookOpen",
         semesters: [
           { id: "sem_bng_1", name: "1st Year", nameBn: "১ম বর্ষ" },
+          { id: "sem_bng_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_bng_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_bng_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
           { id: "sbj_bng_hist", name: "History of Bangla Literature", nameBn: "বাংলা সাহিত্যের ইতিহাস (প্রাচীন ও মধ্যযুগ)", code: "211001", semesterId: "sem_bng_1" },
           { id: "sbj_bng_poetry", name: "Ancient & Medieval Poetry", nameBn: "বাংলা কবিতা ও শ্রীকৃষ্ণকীর্তন", code: "211003", semesterId: "sem_bng_1" },
+          { id: "sbj_bng_mod_poetry", name: "Modern Bangla Poetry", nameBn: "আধুনিক বাংলা কবিতা (রবীন্দ্রনাথ ও জীবনানন্দ)", code: "221001", semesterId: "sem_bng_2" },
         ],
       },
       {
@@ -155,10 +198,14 @@ export const initialEduLevels: EduLevel[] = [
         icon: "Cpu",
         semesters: [
           { id: "sem_phy_1", name: "1st Year", nameBn: "১ম বর্ষ" },
+          { id: "sem_phy_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_phy_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_phy_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
           { id: "sbj_phy_mech", name: "Mechanics & Properties of Matter", nameBn: "মেকানিক্স ও বস্তুর ধর্ম", code: "212701", semesterId: "sem_phy_1" },
           { id: "sbj_phy_waves", name: "Waves & Oscillations", nameBn: "তড়িৎবিদ্যা ও চৌম্বকত্ব", code: "212703", semesterId: "sem_phy_1" },
+          { id: "sbj_phy_optics", name: "Optics & Thermal Physics", nameBn: "আলোকবিজ্ঞান ও তাপ গতিবিজ্ঞান", code: "222701", semesterId: "sem_phy_2" },
         ],
       },
       {
@@ -169,10 +216,14 @@ export const initialEduLevels: EduLevel[] = [
         icon: "Globe",
         semesters: [
           { id: "sem_soc_1", name: "1st Year", nameBn: "১ম বর্ষ" },
+          { id: "sem_soc_2", name: "2nd Year", nameBn: "২য় বর্ষ" },
+          { id: "sem_soc_3", name: "3rd Year", nameBn: "৩য় বর্ষ" },
+          { id: "sem_soc_4", name: "4th Year", nameBn: "৪র্থ বর্ষ" },
         ],
         subjects: [
           { id: "sbj_soc_intro", name: "Introductory Sociology", nameBn: "সমাজবিজ্ঞান পরিচিতি", code: "212001", semesterId: "sem_soc_1" },
           { id: "sbj_soc_hist", name: "Social History of Bangladesh", nameBn: "বাংলাদেশের সামাজিক ইতিহাস", code: "212003", semesterId: "sem_soc_1" },
+          { id: "sbj_soc_theory", name: "Classical Sociological Theory", nameBn: "ধ্রুপদী সমাজবৈজ্ঞানিক তত্ত্ব", code: "222001", semesterId: "sem_soc_2" },
         ],
       },
     ],
@@ -292,6 +343,62 @@ export const initialApprovedFiles: EduFile[] = [
     reportCount: 0,
     status: "approved",
     version: "v1.1",
+  },
+  {
+    id: "file_107_eng2",
+    title: "Honours English 2nd Year - Romantic Poetry Complete Lecture & Exam Notes",
+    description: "অনার্স ২য় বর্ষ ইংরেজি বিভাগ: Wordsworth, Coleridge, Byron, Shelley & Keats এর প্রধান কবিতা সমূহের লাইনভিত্তিক ব্যাখ্যা ও ব্রড কোশ্চেন অ্যানসার।",
+    fileUrl: "#pdf-eng-2ndyr-poetry",
+    fileType: "pdf",
+    fileSize: "4.5 MB",
+    levelId: "lvl_honours",
+    levelName: "Honours",
+    deptId: "dept_hon_eng",
+    deptName: "English Literature",
+    semesterId: "sem_eng_2",
+    semesterName: "2nd Year",
+    subjectId: "sbj_eng_203",
+    subjectName: "Romantic Poetry",
+    tags: ["Honours", "English2ndYear", "RomanticPoetry", "NU"],
+    screenshots: [
+      "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=600&q=80"
+    ],
+    uploadedByUserId: "usr_001",
+    uploadedByUserName: "MD. Nahid Islam",
+    uploadDate: "2026-08-01",
+    downloadCount: 420,
+    viewCount: 1150,
+    reportCount: 0,
+    status: "approved",
+    version: "v1.0",
+  },
+  {
+    id: "file_108_eng3",
+    title: "Honours English 3rd Year - Shakespearean & Elizabethan Drama Master Guide",
+    description: "অনার্স ৩য় বর্ষ ইংরেজি বিভাগ: Shakespeare এর Hamlet, Othello এবং Christopher Marlowe এর Doctor Faustus এর সামারি ও শর্ট-ব্রড প্রশ্নাবলি।",
+    fileUrl: "#pdf-eng-3rdyr-drama",
+    fileType: "pdf",
+    fileSize: "5.8 MB",
+    levelId: "lvl_honours",
+    levelName: "Honours",
+    deptId: "dept_hon_eng",
+    deptName: "English Literature",
+    semesterId: "sem_eng_3",
+    semesterName: "3rd Year",
+    subjectId: "sbj_eng_301",
+    subjectName: "Elizabethan & Jacobean Drama",
+    tags: ["Honours", "English3rdYear", "Shakespeare", "Drama"],
+    screenshots: [
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80"
+    ],
+    uploadedByUserId: "usr_mod01",
+    uploadedByUserName: "Prof. Tanvir Ahmed",
+    uploadDate: "2026-08-01",
+    downloadCount: 380,
+    viewCount: 920,
+    reportCount: 0,
+    status: "approved",
+    version: "v1.0",
   },
   {
     id: "file_105",
