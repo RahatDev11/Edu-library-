@@ -113,8 +113,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
       {/* Breadcrumb & Navigation Bar */}
       {(selectedLevelId || selectedDeptId || selectedSemesterId || selectedSubjectId) && (
-        <div className="flex items-center justify-between p-3 rounded-2xl border shadow-md bg-white border-slate-200 text-slate-800 dark:bg-[#121a2d] dark:border-slate-800 dark:text-slate-300">
-          <div className="flex items-center space-x-2 text-xs font-bold overflow-x-auto scrollbar-none py-1">
+        <div className="flex items-center justify-between p-2.5 px-3 rounded-2xl border shadow-md bg-white border-slate-200 text-slate-800 dark:bg-[#121a2d] dark:border-slate-800 dark:text-slate-300">
+          <div className="flex items-center space-x-1.5 text-xs font-bold overflow-x-auto scrollbar-none py-0.5">
             <button
               onClick={resetFilters}
               className="hover:text-sky-500 flex items-center space-x-1 shrink-0"
@@ -188,14 +188,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
               </>
             )}
           </div>
-
-          <button
-            onClick={resetFilters}
-            className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-rose-500 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-rose-400 transition ml-2 shrink-0 border border-slate-200 dark:border-slate-700"
-            title="Reset All Filters"
-          >
-            <RotateCcw className="w-4 h-4" />
-          </button>
         </div>
       )}
 
@@ -257,33 +249,33 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
         {/* STEP 2: SELECT DEPARTMENT (If Level is selected, but Department is not) */}
         {selectedLevelId && !selectedDeptId && activeLevel && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between py-0.5">
               <div>
-                <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-                  <Building2 className="w-5 h-5 text-sky-500 dark:text-sky-400" />
+                <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white flex items-center space-x-1.5 leading-snug">
+                  <Building2 className="w-4 h-4 text-sky-500 dark:text-sky-400" />
                   <span>
                     {lang === "bn"
                       ? `${activeLevel.nameBn} - বিভাগ নির্বাচন করুন`
                       : `${activeLevel.name} - Select Department`}
                   </span>
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.2">
                   {lang === "bn" ? "আপনার কাঙ্ক্ষিত বিভাগে ক্লিক করুন" : "Tap department to select year"}
                 </p>
               </div>
 
               <button
                 onClick={() => setSelectedLevelId(null)}
-                className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition flex items-center space-x-1"
+                className="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold transition flex items-center space-x-1"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3.5 h-3.5" />
                 <span>{lang === "bn" ? "পিছনে" : "Back"}</span>
               </button>
             </div>
 
             {/* Grid of Departments */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {activeLevel.departments.map((dept) => (
                 <div
                   key={dept.id}
@@ -292,24 +284,24 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
                     setSelectedSemesterId(null);
                     setSelectedSubjectId(null);
                   }}
-                  className="p-4 rounded-2xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-sky-500/50 shadow-md hover:shadow-lg cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
+                  className="p-3 rounded-xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-sky-500/50 shadow-sm hover:shadow-md cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-500 dark:text-sky-400 font-bold shrink-0">
-                      <Folder className="w-5 h-5" />
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-500 dark:text-sky-400 font-bold shrink-0">
+                      <Folder className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
+                      <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
                         {lang === "bn" ? dept.nameBn : dept.name}
                       </h4>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400">
                         {dept.subjects.length} {lang === "bn" ? "টি বিষয়" : "Subjects"}
                       </span>
                     </div>
                   </div>
 
-                  <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-slate-500 dark:text-slate-400 transition">
-                    <ChevronRight className="w-4 h-4" />
+                  <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-slate-500 dark:text-slate-400 transition">
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
               ))}
@@ -319,18 +311,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
         {/* STEP 3: SELECT ACADEMIC YEAR / SEMESTER (If Department is selected, but Year is not) */}
         {selectedLevelId && selectedDeptId && !selectedSemesterId && activeDept && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between py-0.5">
               <div>
-                <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-                  <GraduationCap className="w-5 h-5 text-sky-500 dark:text-sky-400" />
+                <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white flex items-center space-x-1.5 leading-snug">
+                  <GraduationCap className="w-4 h-4 text-sky-500 dark:text-sky-400" />
                   <span>
                     {lang === "bn"
-                      ? `${activeDept.nameBn} - শিক্ষাবর্ষ / বর্ষ নির্বাচন করুন`
+                      ? `${activeDept.nameBn} - বর্ষ নির্বাচন করুন`
                       : `${activeDept.name} - Select Academic Year`}
                   </span>
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.2">
                   {lang === "bn"
                     ? "আপনি কোন বর্ষে পড়েন? নিচে আপনার বর্ষ নির্বাচন করুন"
                     : "Which year/semester are you in? Select your academic year below"}
@@ -339,39 +331,39 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
               <button
                 onClick={() => setSelectedDeptId(null)}
-                className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition flex items-center space-x-1"
+                className="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold transition flex items-center space-x-1"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3.5 h-3.5" />
                 <span>{lang === "bn" ? "বিভাগসমূহ" : "Departments"}</span>
               </button>
             </div>
 
             {/* Grid of Year Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {/* Option 0: All Years Card */}
               <div
                 onClick={() => {
                   setSelectedSemesterId("ALL");
                   setSelectedSubjectId(null);
                 }}
-                className="p-4 rounded-2xl bg-gradient-to-br from-sky-500/15 via-blue-500/5 to-transparent border border-sky-500/40 hover:border-sky-400 dark:bg-[#121a2d] shadow-md hover:shadow-lg cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
+                className="p-3 rounded-xl bg-gradient-to-br from-sky-500/15 via-blue-500/5 to-transparent border border-sky-500/40 hover:border-sky-400 dark:bg-[#121a2d] shadow-sm hover:shadow-md cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
               >
-                <div className="flex items-center space-x-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white font-black text-base shrink-0 shadow-md">
-                    <Sparkles className="w-6 h-6" />
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white font-black text-sm shrink-0 shadow-md">
+                    <Sparkles className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
+                    <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
                       {lang === "bn" ? "সকল বর্ষ (All Years)" : "All Years"}
                     </h4>
-                    <span className="text-[11px] text-sky-600 dark:text-sky-400 font-bold">
+                    <span className="text-[10px] text-sky-600 dark:text-sky-400 font-bold">
                       {activeDept.subjects.length} {lang === "bn" ? "টি বিষয় একনজরে" : "Subjects total"}
                     </span>
                   </div>
                 </div>
 
-                <div className="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center transition">
-                  <ChevronRight className="w-5 h-5" />
+                <div className="w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center transition">
+                  <ChevronRight className="w-4 h-4" />
                 </div>
               </div>
 
@@ -389,17 +381,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
                         setSelectedSemesterId(sem.id);
                         setSelectedSubjectId(null);
                       }}
-                      className="p-4 rounded-2xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-sky-500/60 shadow-md hover:shadow-lg cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
+                      className="p-3 rounded-xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-sky-500/60 shadow-sm hover:shadow-md cursor-pointer hover:scale-[1.01] transition duration-200 flex items-center justify-between group"
                     >
-                      <div className="flex items-center space-x-3.5">
-                        <div className="w-11 h-11 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-600 dark:text-sky-400 font-black text-sm shrink-0">
+                      <div className="flex items-center space-x-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-600 dark:text-sky-400 font-black text-xs shrink-0">
                           {idx + 1}
                         </div>
                         <div>
-                          <h4 className="font-extrabold text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
+                          <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">
                             {lang === "bn" ? sem.nameBn : sem.name}
                           </h4>
-                          <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
                             {semSubjectCount > 0
                               ? `${semSubjectCount} ${lang === "bn" ? "টি বিষয় ও নোট" : "Subjects"}`
                               : lang === "bn"
@@ -409,8 +401,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
                         </div>
                       </div>
 
-                      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-slate-500 dark:text-slate-400 transition">
-                        <ChevronRight className="w-5 h-5" />
+                      <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-slate-500 dark:text-slate-400 transition">
+                        <ChevronRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   );
@@ -422,7 +414,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
                     setSelectedSemesterId("ALL");
                     setSelectedSubjectId(null);
                   }}
-                  className="p-4 rounded-2xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 cursor-pointer"
+                  className="p-3 rounded-xl bg-white dark:bg-[#121a2d] border border-slate-200 dark:border-slate-800 cursor-pointer"
                 >
                   <p className="text-xs text-slate-500">
                     {lang === "bn" ? "সকল বর্ষের বিষয় দেখতে ক্লিক করুন" : "Click to view all subjects"}
@@ -435,18 +427,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
         {/* STEP 4: SELECT SUBJECT (If Year is selected, but Subject is not) */}
         {selectedLevelId && selectedDeptId && selectedSemesterId && !selectedSubjectId && activeDept && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between py-0.5">
               <div>
-                <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-                  <BookOpen className="w-5 h-5 text-sky-500 dark:text-sky-400" />
+                <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white flex items-center space-x-1.5 leading-snug">
+                  <BookOpen className="w-4 h-4 text-sky-500 dark:text-sky-400" />
                   <span>
                     {lang === "bn"
                       ? `${activeDept.nameBn} - বিষয় নির্বাচন করুন`
                       : `${activeDept.name} - Select Subject`}
                   </span>
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.2">
                   {lang === "bn"
                     ? "আপনার বিষয়ে ক্লিক করে নোট, সাজেশন ও প্রশ্ন ব্যাংক দেখুন"
                     : "Tap a subject to view notes, suggestions & question bank"}
@@ -455,9 +447,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
 
               <button
                 onClick={() => setSelectedSemesterId(null)}
-                className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition flex items-center space-x-1"
+                className="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold transition flex items-center space-x-1"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3.5 h-3.5" />
                 <span>{lang === "bn" ? "বর্ষসমূহ" : "Years"}</span>
               </button>
             </div>

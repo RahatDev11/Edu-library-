@@ -152,7 +152,7 @@ function MainApp() {
 
       {/* Prominent Notice Banner placed at the top of the app */}
       <div className="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-2">
-        <NoticeBanner />
+        <NoticeBanner onNoticeClick={() => setActiveTab("notifications")} />
       </div>
 
       {/* Main Content Area */}
