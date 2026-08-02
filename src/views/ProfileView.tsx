@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useApp } from "../context/AppContext";
 import { Role, EduFile } from "../types";
 import {
@@ -13,6 +13,9 @@ import {
   X,
   Sun,
   Moon,
+  Camera,
+  CheckCircle2,
+  Image as ImageIcon,
 } from "lucide-react";
 
 interface ProfileViewProps {
@@ -22,6 +25,7 @@ interface ProfileViewProps {
 export const ProfileView: React.FC<ProfileViewProps> = () => {
   const {
     user,
+    setUser,
     role,
     setUserRole,
     lang,
@@ -35,25 +39,81 @@ export const ProfileView: React.FC<ProfileViewProps> = () => {
   } = useApp();
 
   const [showRecycleBinModal, setShowRecycleBinModal] = useState(false);
+  const [photoSavedToast, setPhotoSavedToast] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert(lang === "bn" ? "ছবির সাইজ সর্বোচ্চ 5MB হতে পারবে।" : "Image size must be under 5MB.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Photo = reader.result as string;
+        const updatedUser = { ...user, photoUrl: base64Photo };
+        setUser(updatedUser);
+        localStorage.setItem("edu_user", JSON.stringify(updatedUser));
+        setPhotoSavedToast(true);
+        setTimeout(() => setPhotoSavedToast(false), 3500);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="space-y-6 pb-20 max-w-3xl mx-auto">
       
+      {photoSavedToast && (
+        <div className="p-3.5 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-between shadow-lg animate-fade-in">
+          <div className="flex items-center space-x-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+            <span>
+              {lang === "bn"
+                ? "প্রোফাইল ছবি সফলভাবে পরিবর্তন হয়েছে এবং আপনার ডিভাইসে সেভ করা হয়েছে!"
+                : "Profile photo updated and saved locally on your device!"}
+            </span>
+          </div>
+          <button onClick={() => setPhotoSavedToast(false)}>
+            <X className="w-4 h-4 text-emerald-500" />
+          </button>
+        </div>
+      )}
+
+      {/* Hidden file input for custom profile photo upload */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handlePhotoUpload}
+        accept="image/*"
+        className="hidden"
+      />
+
       {/* Profile Header Card */}
       <div className={`rounded-2xl border p-6 shadow-xl space-y-5 text-center sm:text-left sm:flex sm:items-center sm:space-x-5 sm:space-y-0 ${
         theme === "dark" ? "bg-[#121a2d] border-slate-800" : "bg-white border-slate-200"
       }`}>
         
-        <div className="relative mx-auto sm:mx-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-sky-500 shadow-lg">
+        {/* Photo Avatar with Camera upload button */}
+        <div className="relative mx-auto sm:mx-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-sky-500 shadow-lg group shrink-0">
           <img
             src={user.photoUrl}
             alt={user.fullName}
             className="w-full h-full object-cover"
           />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center text-white text-[10px] font-bold space-y-1"
+            title={lang === "bn" ? "নিজের ছবি পরিবর্তন করুন" : "Change Profile Photo"}
+          >
+            <Camera className="w-5 h-5 text-sky-400" />
+            <span>{lang === "bn" ? "ছবি নির্বাচন" : "Change"}</span>
+          </button>
         </div>
 
         <div className="flex-1 space-y-1.5">
-          <div className="flex items-center justify-center sm:justify-start space-x-2">
+          <div className="flex items-center justify-center sm:justify-start space-x-2 flex-wrap gap-y-1">
             <h2 className={`text-xl font-extrabold ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
               {user.fullName}
             </h2>
@@ -65,12 +125,22 @@ export const ProfileView: React.FC<ProfileViewProps> = () => {
           </div>
 
           <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-            {user.email} • {user.educationLevel} ({user.department})
+            {user.email} • {user.educationLevel || "Honours"} ({user.department || "English Literature"})
           </p>
 
           <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic max-w-md">
             "{user.bio}"
           </p>
+
+          <div className="pt-1 flex items-center justify-center sm:justify-start space-x-2">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/30 text-xs font-bold transition"
+            >
+              <Camera className="w-3.5 h-3.5" />
+              <span>{lang === "bn" ? "নিজের ছবি পরিবর্তন করুন (ডিভাইসে সেভ হবে)" : "Upload Photo (Saved Locally)"}</span>
+            </button>
+          </div>
 
           {/* Warning status badge if warning level > 0 */}
           {user.warningLevel > 0 && (
