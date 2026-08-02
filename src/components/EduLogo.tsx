@@ -24,13 +24,23 @@ export const EduLogo: React.FC<EduLogoProps> = ({
 
   const imgSizeClass = sizeClasses[size] || sizeClasses.md;
 
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.currentTarget;
+    if (target.src.includes("logo.png")) {
+      target.src = "/logo.jpg";
+    } else if (target.src.includes("logo.jpg")) {
+      target.src = logoImg;
+    }
+  };
+
   if (variant === "icon") {
     return (
       <div className={`relative flex items-center justify-center shrink-0 ${className}`}>
         <img
-          src={logoImg}
+          src="/logo.png"
           alt="Edu Library Logo"
-          className={`${imgSizeClass} object-contain rounded-xl shadow-md border border-slate-200/50 dark:border-slate-800/80`}
+          onError={handleImgError}
+          className={`${imgSizeClass} object-cover rounded-xl shadow-md border border-slate-200/50 dark:border-slate-800/80 bg-white`}
         />
       </div>
     );
@@ -41,9 +51,10 @@ export const EduLogo: React.FC<EduLogoProps> = ({
       <div className={`flex flex-col items-center text-center ${className}`}>
         <div className="relative mb-2">
           <img
-            src={logoImg}
+            src="/logo.png"
             alt="Edu Library Logo"
-            className={`${sizeClasses.xl} object-contain rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/80`}
+            onError={handleImgError}
+            className={`${sizeClasses.xl} object-cover rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/80 bg-white`}
           />
         </div>
         <h1 className="text-xl sm:text-2xl font-black tracking-tight">
@@ -68,9 +79,10 @@ export const EduLogo: React.FC<EduLogoProps> = ({
     <div className={`flex items-center space-x-3 ${className}`}>
       <div className="relative shrink-0">
         <img
-          src={logoImg}
+          src="/logo.png"
           alt="Edu Library Logo"
-          className={`${imgSizeClass} object-contain rounded-xl shadow-md border border-slate-200/60 dark:border-slate-800 bg-white p-0.5`}
+          onError={handleImgError}
+          className={`${imgSizeClass} object-cover rounded-xl shadow-md border border-slate-200/60 dark:border-slate-800 bg-white p-0.5`}
         />
       </div>
       <div>
@@ -87,3 +99,4 @@ export const EduLogo: React.FC<EduLogoProps> = ({
     </div>
   );
 };
+
