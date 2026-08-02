@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AppProvider, useApp } from "./context/AppContext";
 import { Header } from "./components/Header";
 import { NoticeBanner } from "./components/NoticeBanner";
@@ -21,7 +21,19 @@ import {
 } from "lucide-react";
 
 function MainApp() {
-  const { lang, notifications, theme } = useApp();
+  const {
+    lang,
+    notifications,
+    theme,
+    selectedLevelId,
+    setSelectedLevelId,
+    selectedDeptId,
+    setSelectedDeptId,
+    selectedSemesterId,
+    setSelectedSemesterId,
+    selectedSubjectId,
+    setSelectedSubjectId,
+  } = useApp();
 
   // Active Bottom Tab State
   const [activeTab, setActiveTab] = useState<"home" | "downloads" | "upload" | "notifications" | "profile">("home");
@@ -35,6 +47,96 @@ function MainApp() {
   // Gemini Modals & Auth Modal
   const [isAiScannerOpen, setIsAiScannerOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // History & Hardware Back Button Handler
+  const isPopstateRef = useRef(false);
+  const ignoreNextPopstateRef = useRef(false);
+  const prevDepthRef = useRef(0);
+
+  // Calculate navigation depth for browser history management
+  const calculateDepth = () => {
+    let depth = 0;
+    if (activeTab !== "home") depth += 1;
+    if (selectedLevelId) depth += 1;
+    if (selectedDeptId) depth += 1;
+    if (selectedSemesterId) depth += 1;
+    if (selectedSubjectId) depth += 1;
+    if (pdfReaderFile || selectedFile || isAiScannerOpen || isAuthModalOpen) depth += 1;
+    return depth;
+  };
+
+  const currentDepth = calculateDepth();
+
+  // Listen to popstate (Hardware / Browser back button)
+  useEffect(() => {
+    const handlePopState = () => {
+      if (ignoreNextPopstateRef.current) {
+        ignoreNextPopstateRef.current = false;
+        return;
+      }
+
+      isPopstateRef.current = true;
+
+      if (pdfReaderFile) {
+        setPdfReaderFile(null);
+      } else if (selectedFile) {
+        setSelectedFile(null);
+      } else if (isAiScannerOpen) {
+        setIsAiScannerOpen(false);
+      } else if (isAuthModalOpen) {
+        setIsAuthModalOpen(false);
+      } else if (selectedSubjectId) {
+        setSelectedSubjectId(null);
+      } else if (selectedSemesterId) {
+        setSelectedSemesterId(null);
+      } else if (selectedDeptId) {
+        setSelectedDeptId(null);
+      } else if (selectedLevelId) {
+        setSelectedLevelId(null);
+      } else if (activeTab !== "home") {
+        setActiveTab("home");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [
+    pdfReaderFile,
+    selectedFile,
+    isAiScannerOpen,
+    isAuthModalOpen,
+    selectedSubjectId,
+    selectedSemesterId,
+    selectedDeptId,
+    selectedLevelId,
+    activeTab,
+    setSelectedSubjectId,
+    setSelectedSemesterId,
+    setSelectedDeptId,
+    setSelectedLevelId,
+  ]);
+
+  // Sync History Stack with Depth Changes
+  useEffect(() => {
+    if (isPopstateRef.current) {
+      isPopstateRef.current = false;
+      prevDepthRef.current = currentDepth;
+      return;
+    }
+
+    if (currentDepth > prevDepthRef.current) {
+      const pushCount = currentDepth - prevDepthRef.current;
+      for (let i = 0; i < pushCount; i++) {
+        window.history.pushState({ depth: currentDepth }, "");
+      }
+    } else if (currentDepth < prevDepthRef.current) {
+      const backCount = prevDepthRef.current - currentDepth;
+      ignoreNextPopstateRef.current = true;
+      window.history.go(-backCount);
+    }
+
+    prevDepthRef.current = currentDepth;
+  }, [currentDepth]);
 
   const unreadNotifs = notifications.filter((n) => !n.read).length;
 
