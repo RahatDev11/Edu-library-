@@ -18,6 +18,7 @@ import {
   PlusCircle,
   Bell,
   User,
+  LogOut,
 } from "lucide-react";
 
 function MainApp() {
@@ -47,6 +48,10 @@ function MainApp() {
   // Gemini Modals & Auth Modal
   const [isAiScannerOpen, setIsAiScannerOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // Double Back Press Exit Confirmation State
+  const [showExitToast, setShowExitToast] = useState(false);
+  const lastBackPressRef = useRef<number>(0);
 
   // History & Hardware Back Button Handler
   const isPopstateRef = useRef(false);
@@ -95,6 +100,20 @@ function MainApp() {
         setSelectedLevelId(null);
       } else if (activeTab !== "home") {
         setActiveTab("home");
+      } else {
+        // We are at root home (Depth 0) -> Double back button exit confirmation
+        const now = Date.now();
+        if (now - lastBackPressRef.current < 2500) {
+          // Second back press within 2.5s: allow exit
+        } else {
+          lastBackPressRef.current = now;
+          setShowExitToast(true);
+          // Push history guard so browser/app doesn't close on first press
+          window.history.pushState({ exitGuard: true }, "");
+          setTimeout(() => {
+            setShowExitToast(false);
+          }, 2500);
+        }
       }
     };
 
@@ -138,6 +157,11 @@ function MainApp() {
     prevDepthRef.current = currentDepth;
   }, [currentDepth]);
 
+  // Always scroll smoothly to top when switching main tabs
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [activeTab]);
+
   const unreadNotifs = notifications.filter((n) => !n.read).length;
 
   return (
@@ -152,11 +176,16 @@ function MainApp() {
 
       {/* Prominent Notice Banner placed at the top of the app */}
       <div className="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-2">
-        <NoticeBanner onNoticeClick={() => setActiveTab("notifications")} />
+        <NoticeBanner
+          onNoticeClick={() => {
+            setActiveTab("notifications");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 pt-1">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 pt-1 min-h-[70vh]">
         {activeTab === "home" && (
           <HomeView
             onSelectFile={(f) => setSelectedFile(f)}
@@ -197,6 +226,18 @@ function MainApp() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
       />
+
+      {/* Double Back Press Exit Toast */}
+      {showExitToast && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 text-white dark:bg-white/95 dark:text-slate-950 px-5 py-3 rounded-full text-xs font-black shadow-2xl backdrop-blur-md flex items-center space-x-2 border border-slate-700 dark:border-slate-300 animate-bounce transition-all">
+          <LogOut className="w-4 h-4 text-amber-400 shrink-0" />
+          <span>
+            {lang === "bn"
+              ? "অ্যাপ থেকে বের হতে পুনরায় ব্যাক প্রেস করুন"
+              : "Press back button again to exit app"}
+          </span>
+        </div>
+      )}
 
       {/* Bottom 5-Tab Navigation Bar */}
       <nav

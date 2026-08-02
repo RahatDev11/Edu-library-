@@ -28,14 +28,14 @@ export const NoticeBanner: React.FC<NoticeBannerProps> = ({ onNoticeClick }) => 
         <span>{lang === "bn" ? "নোটিশ" : "Notice"}</span>
       </div>
 
-      {/* Marquee Ticker Container with Edge Gradient Mask (Blur Fade) */}
+      {/* Marquee Ticker Container with Soft Right Edge Gradient Fade */}
       <div
-        className="relative flex-1 overflow-hidden whitespace-nowrap"
+        className="relative flex-1 overflow-hidden whitespace-nowrap pl-1"
         style={{
           WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)",
+            "linear-gradient(to right, black 0%, black calc(100% - 28px), transparent 100%)",
           maskImage:
-            "linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)",
+            "linear-gradient(to right, black 0%, black calc(100% - 28px), transparent 100%)",
         }}
       >
         <div className="inline-block animate-marquee hover:[animation-play-state:paused] whitespace-nowrap">

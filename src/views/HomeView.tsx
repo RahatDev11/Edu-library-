@@ -191,8 +191,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onSelectFile }) => {
         </div>
       )}
 
-      {/* STEP-BY-STEP DRILLDOWN FLOW */}
-      <div>
+      {/* STEP-BY-STEP DRILLDOWN FLOW WITH STABLE MIN-HEIGHT */}
+      <div className="min-h-[420px] transition-all duration-200">
         {/* STEP 1: SELECT LEVEL (If no level selected) */}
         {!selectedLevelId && (
           <div className="space-y-4">
